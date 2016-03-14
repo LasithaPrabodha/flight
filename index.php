@@ -57,7 +57,7 @@
 											<!---strat-date-piker---->
 											<script>
 												$(function() {
-													$( "#datepicker,#datepicker1" ).datepicker();
+                                                    $( "#datepicker,#datepicker1,#datepicker2" ).datepicker();
 												});
 											</script>
 											<!---/End-date-piker---->
@@ -67,27 +67,45 @@
 													<div class="b_room">
 														<div class="booking_room">
 															<div class="reservation">
-																<ul>		
-																	<li  class="span1_of_1 desti">
-																		 <h5>Flying from</h5>
-																		 <div class="book_date">
-																			 <form>
-																				<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-																				<input type="text" placeholder="Type Departure City" class="typeahead1 input-md form-control tt-input" required="">
-																			 </form>
-																		 </div>					
-																	 </li>
-																	 <li  class="span1_of_1 left desti">
-																		 <h5>Flying to</h5>
-																		 <div class="book_date">
-																		 <form>
-																			<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-																			<input type="text" placeholder="Type Destination City" class="typeahead1 input-md form-control tt-input" required="">
-																		 </form>
-																		 </div>		
-																	 </li>
-																	 <div class="clearfix"></div>
-																</ul>
+                                                                <ul>
+                                                                    <li  class="span1_of_1 desti">
+                                                                        <h5>Flying from</h5>
+                                                                        <div class="book_date">
+                                                                            <select id="depature" name="depature" class="form-control">
+                                                                                <option value="0">Any</option>
+                                                                                <?php  $sql = "SELECT DISTINCT depature FROM flights";
+                                                                                $rs = $conexion->query($sql);
+                                                                                $rows = $rs->fetch_all();
+                                                                                if (!empty($rows)){
+                                                                                    foreach ($rows as $row) {
+                                                                                        ?>
+                                                                                        <option value="<?php echo $row[0] ?>"><?php echo $row[0] ?></option>
+                                                                                    <?php }} ?>
+
+                                                                            </select>
+
+                                                                        </div>
+                                                                    </li>
+                                                                    <li  class="span1_of_1 left desti">
+                                                                        <h5>Flying to</h5>
+                                                                        <div class="book_date">
+
+                                                                            <select id="depature" name="depature" class="form-control">
+                                                                                <option value="0">Any</option>
+                                                                                <?php  $sql = "SELECT DISTINCT destination FROM flights";
+                                                                                $rs = $conexion->query($sql);
+                                                                                $rows = $rs->fetch_all();
+                                                                                if (!empty($rows)) {
+                                                                                    foreach ($rows as $row) {
+                                                                                        ?>
+                                                                                        <option value="<?php echo $row[0] ?>"><?php echo $row[0] ?></option>
+                                                                                    <?php }} ?>
+
+                                                                            </select>
+                                                                        </div>
+                                                                    </li>
+                                                                    <div class="clearfix"></div>
+                                                                </ul>
 															</div>
 															<div class="reservation">
 																<ul>	
@@ -96,7 +114,7 @@
 																		 <div class="book_date">
 																		 <form>
 																			<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-																			<input type="date" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}">
+																			<input type="date" id="datepicker" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}">
 																		 </form>
 																		 </div>		
 																	 </li>
@@ -105,7 +123,7 @@
 																		 <div class="book_date">
 																			 <form>
 																				<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-																				<input type="date" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}">
+																				<input type="date" id="datepicker1" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}">
 																			</form>
 																		 </div>					
 																	 </li>
@@ -178,7 +196,7 @@
 											<script src="js/jquery-ui.js"></script>
 													  <script>
 															  $(function() {
-																$( "#datepicker,#datepicker1" ).datepicker();
+                                                                  $( "#datepicker,#datepicker1,#datepicker2" ).datepicker();
 															  });
 													  </script>
 
@@ -191,19 +209,37 @@
 																	<li  class="span1_of_1 desti">
 																		 <h5>Flying from</h5>
 																		 <div class="book_date">
-																			 <form>
-																				<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-																				<input type="text" placeholder="Type Departure City" class="typeahead1 input-md form-control tt-input" required="">
-																			 </form>
+                                                                             <select id="depature" name="depature" class="form-control">
+                                                                                 <option value="0">Any</option>
+                                                                                 <?php  $sql = "SELECT DISTINCT depature FROM flights";
+                                                                                 $rs = $conexion->query($sql);
+                                                                                 $rows = $rs->fetch_all();
+                                                                                 if (!empty($rows)){
+                                                                                 foreach ($rows as $row) {
+                                                                                 ?>
+                                                                                     <option value="<?php echo $row[0] ?>"><?php echo $row[0] ?></option>
+                                                                                 <?php }} ?>
+
+                                                                             </select>
+
 																		 </div>					
 																	 </li>
 																	 <li  class="span1_of_1 left desti">
 																		 <h5>Flying to</h5>
 																		 <div class="book_date">
-																		 <form>
-																			<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-																			<input type="text" placeholder="Type Destination City" class="typeahead1 input-md form-control tt-input" required="">
-																		 </form>
+
+                                                                             <select id="depature" name="depature" class="form-control">
+                                                                                 <option value="0">Any</option>
+                                                                                 <?php  $sql = "SELECT DISTINCT destination FROM flights";
+                                                                                 $rs = $conexion->query($sql);
+                                                                                 $rows = $rs->fetch_all();
+                                                                                 if (!empty($rows)) {
+                                                                                 foreach ($rows as $row) {
+                                                                                     ?>
+                                                                                     <option value="<?php echo $row ?>"><?php echo $row[0] ?></option>
+                                                                                 <?php }} ?>
+
+                                                                             </select>
 																		 </div>		
 																	 </li>
 																	 <div class="clearfix"></div>
@@ -216,7 +252,7 @@
 																		 <div class="book_date">
 																		 <form>
 																			<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-																			<input type="date" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}">
+																			<input type="date" id="datepicker2" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}">
 																		</form>
 																		 </div>		
 																	 </li>
@@ -289,15 +325,7 @@
 		</div>
 		<!-- //container -->
 	</div>
-	<!-- //banner -->
-	<div class="move-text">
-		<div class="marquee">Register your hotel with us free of cost.<a href="signup.php">Here</a></div>
-		<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
-        <script>
-		  $('.marquee').marquee({ pauseOnHover: true });
-		  //@ sourceURL=pen.js
-		</script>
-	</div>
+
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		<!-- container -->
@@ -611,3 +639,9 @@
 	<!-- popular-grids -->
 
 <?php include_once 'includes/footer.php'; ?>
+
+
+
+
+
+
