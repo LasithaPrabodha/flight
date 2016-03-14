@@ -13,8 +13,11 @@ if (isset($_POST['signup'])) {
     $fname = sql_escape($_POST['fname']);
     $lname = sql_escape($_POST['lname']);
     $pno = sql_escape($_POST['pno']);
+    $passport = sql_escape($_POST['passport']);
 
-    if ($password != $cpassword) {
+    if(empty($email)&&empty($password)&&empty($cpassword)&&empty($fname)&&empty($lname)&&empty($pno)&&empty($passport)){
+        $m = '<div class="alert alert-danger">  <strong></strong> All the Fields are mandatory!</div>';
+    } else if($password != $cpassword) {
         $m = '<div class="alert alert-danger">  <strong></strong> Passwords do not match!</div>';
     } else {
 
@@ -23,7 +26,7 @@ if (isset($_POST['signup'])) {
         if ($result->num_rows > 0) {
             $m = '<div class="alert alert-danger">  <strong></strong> User already exists !</div>';
         }else{
-            $insert = "INSERT INTO users(`first_name`, `last_name`, `email`, `password`, `phone`) VALUES ('$fname', '$lname','$email', '$password',$pno)";
+            $insert = "INSERT INTO users(`first_name`, `last_name`, `email`, `password`, `phone`,`passport_no`) VALUES ('$fname', '$lname','$email', '$password','$pno','$passport')";
 
             $result = register($insert);
             $m = '<div class="alert alert-success">  <strong></strong> User Created successfully! Sign in Now!</div>';
@@ -56,6 +59,8 @@ echo $m;
 								<input type="text" name="pno" id="pno" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
 								<p>Email Address</p>
 								<input type="text" name="email" required id="email" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+                                                                <p>Passport Number</p>
+								<input type="text" name="passport" required id="passport" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
 								<p>Password</p>
 								<input type="password" name="password" required id="password">
 								<p>Confirm Password</p>

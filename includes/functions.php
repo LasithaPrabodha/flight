@@ -43,10 +43,10 @@ function getuser($field) {
         if ($query_result = mysql_result($resultSet, 0, $field)) {
             return $query_result;
         } else {
-            echo "e1";
+//            echo "e1";
         }
     } else {
-        echo "e2";
+//        echo "e2";
     }
 }
 
