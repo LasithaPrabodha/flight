@@ -1,10 +1,27 @@
 <?PHP include_once('includes/header.php') ?>
 <?php 
-$user_type='A';
-$profile_img='';
-$id='';
-$name_with_initials='aaaaa';
-$first_name='Arun';
+
+$sql = "SELECT * FROM users where id = '1'";
+$result = $conexion->query($sql);
+if ($result->num_rows > 0) {
+
+    while ($row = $result->fetch_array()) {
+
+        $id = $row['id'];
+        $first_name = $row['first_name'];
+        $last_name = $row['last_name'];
+        $email = $row['email'];
+        //$profile_img = $row['profile_img'];
+        $user_type = $row['user_type'];
+        $password = $row['password'];
+        $contact_number = $row['phone'];
+        $passport_no = $row['passport_no'];
+    }
+}
+
+
+$name_with_initials=$first_name."".$last_name;
+
 
 ?>
 <style>
@@ -63,9 +80,19 @@ $first_name='Arun';
             });
         });
 </script>
-<div class="container">
+<div class="banner-bottom">
+    <div class="container ">
+        <div class="banner-bottom-info">
+				<h3 style="margin-left: 30px;"><?php
+                        if ($user_type == 'A') {
+                            echo 'Admin Profile';
+                        } else{
+                            echo 'Your Profile';
+                        } 
+                        ?></h3>
+        </div>
 	<!-- profile -->
-        <div class="row" style="padding: 10px;background-color: rgba(211, 211, 211, 0.09);;margin-top: 10px;margin-bottom: 20px;">
+        <div class="row " style="padding: 10px;background-color: #fff;margin-top: 10px;margin-bottom: 20px;">
         
         <div id="alert-container"></div>
         <div class="col-md-3"   style="background-color: rgba(210, 210, 210, 0.09);  min-height: 553px" >
@@ -80,11 +107,11 @@ $first_name='Arun';
                 ?>"/>
             </div>
             <div class="col-md-offset-1 col-md-10 text-center" style='padding-top: 10px;'><h3><span style="color:#FF4800;"><?php echo $first_name; ?></span></h3></div>
-            <div class="col-md-offset-1 col-md-10 text-center" style='padding-top: 0px;'><h4><span style="color:rgb(77, 80, 89);"><?php
+            <div class="col-md-offset-1 col-md-10 text-center" style='padding-top: 0px;'><h4><span style="color:rgb(77, 80, 89);"><br><?php
                         if ($user_type == 'A') {
                             echo 'ADMIN';
                         } 
-                        ?></span></h4></div>
+                        ?></span></h4><br></div>
 
             <?php if($id == ''){ ?>
             <div class="col-md-offset-1 col-md-10 center" ><button class='btn btn-success col-md-12' data-toggle="modal" data-target="#editModal">Profile settings</button></div>
@@ -96,24 +123,15 @@ $first_name='Arun';
         </div>
 
         <div class="col-md-9" style=" border-left: 1px solid #ddd; min-height: 553px">
-            <div class="col-md-12"><div class="col-md-8"><h1><?php
-                        if ($user_type == 'A') {
-                            echo 'Admin Profile';
-                        } else{
-                            echo 'Your Profile';
-                        } 
-                        ?></h1></div>
-              
-            </div>
+            
             
             <div class="col-md-12" style="margin-top: 10px;">
                 <!--Tabs-->
-                <div class="bhoechie-tab-menu">
+                <div class="bhoechie-tab-menu col-md-12">
                     <ul class="nav nav-tabs profile-nav">
                         <li role="presentation" class="active"><a href="#">Profile</a></li>
-                        <li role="presentation"><a href="">Appoinments</a></li> 
-                        <li role="presentation"><a href="#">Set Available Times</a></li>
-                        <li role="presentation"><a href="#">Payments</a></li>
+                        <li role="presentation"><a href="">My Bookings</a></li> 
+                        
                      </ul>
                 </div>
                 <!--end of Tabs-->
@@ -129,37 +147,26 @@ $first_name='Arun';
                             </tr>
                             <tr>
                                 <td class="subheadng">Name</td>
-                                <td class="normal"><?php echo ''; ?></td>
+                                <td class="normal"><?php echo $name_with_initials; ?></td>
                                 <td class="subheadng">&nbsp;  </td>
                                 <td class="normal">&nbsp; </td>   
                             </tr>
 
                             <tr>
                                 <td class="subheadng">User Name</td>
-                                <td class="normal"><?php echo ''; ?></td>
-                                <td class="subheadng">&nbsp;  </td>
-                                <td class="normal">&nbsp; </td>   
-                            </tr>
-                            <tr>
-
-                                <td class="subheadng">User Role</td>
-                                <td class="normal"><?php
-                                    if ($user_type == 'A') {
-                                        echo 'Admin';
-                                    } elseif ($user_type == 'D') {
-                                        echo 'Doctor';
-                                    } elseif ($user_type == 'P') {
-                                        echo 'Patient';
-                                    } elseif ($user_type == 'G') {
-                                        echo 'General Pysicient';
-                                    }
-                                    ?></td>
+                                <td class="normal"><?php echo $email; ?></td>
                                 <td class="subheadng">&nbsp;  </td>
                                 <td class="normal">&nbsp; </td>   
                             </tr>
                             <tr>
                                 <td class="subheadng">Contact No</td>
-                                <td class="normal"><?php echo ''; ?></td>
+                                <td class="normal"><?php echo $contact_number; ?></td>
+                                <td class="subheadng">&nbsp;  </td>
+                                <td class="normal">&nbsp; </td>   
+                            </tr>
+                            <tr>
+                                <td class="subheadng">Passport No</td>
+                                <td class="normal"><?php echo $passport_no; ?></td>
                                 <td class="subheadng">&nbsp;  </td>
                                 <td class="normal">&nbsp; </td>   
                             </tr>
@@ -173,24 +180,37 @@ $first_name='Arun';
                 </div>
                 <!--end of tab content 1-->
                 <!--tab content 2:appointment details-->
-                <div class="bhoechie-tab-content hide">
-                    <br>
+                <div class="bhoechie-tab-content hide col-md-12" style="padding: 0px;">
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="details-table" style="margin-top: 10px; margin-bottom: 10px;">
+                        <tbody>
+                            <tr class="trheding">
+                                <td id="dtr">Bookings</td>
+                                <td id="dtr">&nbsp;</td>
+                                <td id="dtr">&nbsp;</td>
+                                <td id="dtr">&nbsp;</td>
+                            </tr>
+                    
+
+
+
+
+                        </tbody></table>
+                    <br><br>
+                     <div class="clearfix"></div>
                 </div>
                 <!--end of tab content 2-->
                 <!--tab content 3:For doctors select available time slots-->
-                <div class="col-md-12 bhoechie-tab-content hide">
-                    <br>
-                </div> 
+               
                 <!--end of tab content 3-->
                 <!--tab content 4:for doctors see payment details -->
-                <div class="col-md-12 bhoechie-tab-content hide">
-                    <br>
-                </div>
+               
                  <!--end of tab content 4-->
             </div>
         </div>
     </div>
         <!-- end of profile -->
+    </div>
 </div>
 	
 
