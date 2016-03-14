@@ -11,7 +11,7 @@
 function db_connect(){
 
         $server   = "localhost";
-        $db   = "doc_res";
+        $db   = "flight_db";
         $username    = "root";
         $password = "";
 

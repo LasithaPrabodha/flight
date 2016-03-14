@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Govihar a Travel Agency Category Flat bootstrap Responsive website Template | Home :: w3layouts</title>
+    <title>Home</title>
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -82,11 +82,11 @@
 
                     <div id="loginContainer">
                         <a href="#" id="loginButton"><span> <?PHP echo $_SESSION['first_name']; ?></span></a>
-                        <div id="loginBox" style="position: absolute;top: 45px;left: 0px;display: none;z-index: 99999;background-color: ">
+                        <div id="loginBox" style="position: absolute;top: 45px;left: 0px;display: none;z-index: 99999;background-color:black; text-decoration: none;">
                             <ul style="text-decoration: none; padding: 10px; color: green;">
-                                <li><a href="profile.php">Profile</a></li>
-                                <li><a href="messages.php">Messages</a></li>
-                                <li><a href="signout.php">Sign out</a></li>
+                                <li><a style="color: #fff;" href="profile.php">Profile</a></li>
+                                <li><a style="color: #fff;" href="messages.php">Messages</a></li>
+                                <li><a style="color: #fff;" href="signout.php">Sign out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -107,9 +107,9 @@
                                                 <input type="password" name="password" id="password">
                                             </fieldset>
                                             <input type="submit" id="login" value="Sign in">
-                                            <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
+                                           
                                         </fieldset>
-                                        <span><a href="#">Forgot your password?</a></span>
+                                        
                                         <div class="or-grid">
                                             <p>OR</p>
                                         </div>
