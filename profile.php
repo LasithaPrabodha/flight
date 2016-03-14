@@ -145,6 +145,9 @@ if (isset($_POST['submit2'])) { // Change password
     .dataTables tbody tr {
 min-height: 35px; 
 }
+.reffield { 
+    width: 350px; height: 80px; border: 1px solid #999999; padding: 5px; font-size: 30px; 
+}
 
 </style>
 
@@ -199,6 +202,7 @@ if (isset($profile_img) && (!empty($profile_img))) {
                         <ul class="nav nav-tabs profile-nav">
                             <li role="presentation" class="active"><a href="#">Profile</a></li>
                             <li role="presentation"><a href="">My Bookings</a></li> 
+                            <li role="presentation"><a href="">View a booking</a></li> 
 
                         </ul>
                     </div>
@@ -303,7 +307,13 @@ if (isset($profile_img) && (!empty($profile_img))) {
                     </div>
                     <!--end of tab content 2-->
                     <!--tab content 3:For doctors select available time slots-->
-
+                    <div class="bhoechie-tab-content hide col-md-12 ">
+                        <form action="view-booking.php" method="GET">
+                            <center style="margin-top:150px;"><h3>Referance No :</h3><input type="text" name="ref" class="reffield"><br><input style="margin-top: 10px;" type="submit" name="refsub" value="Find This Booking" class="btn btn-lg btn-success"></center>
+                        
+                        </form>
+                        
+                    </div>
                     <!--end of tab content 3-->
                     <!--tab content 4:for doctors see payment details -->
 

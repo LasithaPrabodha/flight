@@ -65,6 +65,48 @@ if ($result1->num_rows > 0) {
     die("<script>location.href = 'profile.php'</script>");
         
     }
+}else if(isset($_GET['ref'])&&(!empty ($_GET['ref']))){
+    $ref = $_GET['ref'];
+    $sql = "SELECT b.booking_id,b.booking_reference,b.date_created ,b.class,b.seat_no,b.amount,f.flight_no,f.airline,f.depature,f.destination,f.depature_date FROM bookings b,flights f where b.user_id='{$_SESSION['id']}' and b.flight_id=f.id and b.booking_reference='$ref'";
+$result = $conexion->query($sql);
+if ($result->num_rows > 0) {
+
+    while ($row = $result->fetch_array()) {
+
+        $booking_id = $row['booking_id'];
+        $booking_referance = $row['booking_reference'];
+        $date_booked = $row['date_created'];
+        $class_t = $row['class'];
+        $seat = $row['seat_no'];
+        $amount = $row['amount'];
+        $flight_no = $row['flight_no'];
+        $airline = $row['airline'];
+        $depature = $row['depature'];
+        $destination = $row['destination'];
+        $depature_date = $row['depature_date'];
+    }
+}else{
+    $booking_id = '';
+        $booking_referance = '';
+        $date_booked = '';
+        $class_t = '';
+        $seat = '';
+        $amount = '';
+        $flight_no = '';
+        $airline = '';
+        $depature = '';
+        $destination = '';
+        $depature_date = '';
+        $class = "";
+     echo "<div class='alert alert-danger'>Invalid Refernce Number!.</div>";
+  die("<script>location.href = 'profile.php'</script>");
+}
+    if($class_t=='b'){
+        $class = "BUSINESS CLASS";
+    }else{
+        $class = "ECONOMY CLASS";
+    }
+
 }else{
      die("<script>location.href = 'index.php'</script>");
     
@@ -97,7 +139,7 @@ if ($result1->num_rows > 0) {
                                                                 <p>Seat</p>
 								<input type="text" disabled value="<?php echo $seat;?>" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
                                                                 <p>Amount</p>
-								<input type="text" disabled value="<?php echo $amount;?>" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+								<input type="text" disabled value="<?php echo 'Rs.'.$amount.'/=';?>" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
 								
 								<!--<input type="submit" id="signup" name="signup" value="Register">-->
 							
