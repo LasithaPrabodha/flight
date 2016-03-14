@@ -65,7 +65,7 @@ nav.navbar.navbar-default {
 }
 .top-nav{
     margin: 0 auto 0 0;
-    width: 82.2%;
+    width:auto;
 	float:left;
 }
 .top-nav ul {
@@ -125,6 +125,30 @@ nav.navbar.navbar-default {
     display: none;
     z-index: 99999;
 }
+
+#ddui li{
+    padding:7px 15px;
+    color: #BDBDBD;
+}
+
+
+
+#ddui li:hover{
+
+    background: #6fd508;
+    color: #FFFFFF;
+}
+
+.dddiv:after {
+    content: '';
+    position: absolute;
+    right: 25px;
+    top: -9px;
+    border-left: 10px solid rgba(0, 0, 0, 0);
+    border-right: 10px solid rgba(0, 0, 0, 0);
+    border-bottom: 10px solid #FFFFFF;
+}
+
 #loginForm:after {
     content: '';
     position: absolute;
@@ -216,6 +240,7 @@ fieldset#body {
     text-decoration: none;
     color: #2B2B2B !important;
 }
+
 input:focus {
     outline:none;
 }

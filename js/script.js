@@ -16,6 +16,7 @@ $(document).ready(function(){
 		
 		/* Preventing the default event (which would be to navigate the browser to the link's address) */
 		e.preventDefault();
-	})
-	
+	});
+
+    $(".alert").delay(3000).slideUp(200);
 });

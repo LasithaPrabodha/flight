@@ -54,7 +54,7 @@ function register($str) {
     $conexion = db_connect();
 
     if ($conexion->query($str) == true) {
-        $result = array($conexion->insert_id, "A patient registered!");
+        $result = array($conexion->insert_id, "User registered!");
         return $result;
     } else {
         echo "e2";

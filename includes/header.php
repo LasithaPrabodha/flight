@@ -1,4 +1,44 @@
-<?php require_once("includes/functions.php"); ?>
+<?php require_once("includes/functions.php");
+
+$message = "";
+if(isset($_POST['login']))
+{
+    $LUsername = sql_escape($_POST['email']);
+    $LPassword = sql_escape($_POST['password']);
+
+    if(!empty($LUsername) && !empty($LPassword))
+    {
+        $hashPassword =md5($LPassword);
+        $conexion = db_connect();
+        $sql = "SELECT * FROM users WHERE email = '{$LUsername}' ";
+        $result = $conexion->query($sql);
+        if ($result->num_rows > 0) {
+
+            $resultSet = $result->fetch_assoc();
+            $filteredID = sql_escape($resultSet['email']);
+            $filteredPW = sql_escape($resultSet['password']);
+            if((($filteredID == $LUsername)) && ($filteredPW == $hashPassword))
+            {
+
+                $_SESSION['email']=$filteredID;
+                $_SESSION['id']=$resultSet['id'];
+                $_SESSION['first_name'] = $resultSet['first_name'];
+                $_SESSION['last_name'] = $resultSet['last_name'];
+                $_SESSION['passport_no'] = $resultSet['passport_no'];
+                $_SESSION['address'] = $resultSet['address'];
+                $_SESSION['phone'] = $resultSet['phone'];
+
+            }else{
+                $message = '<div class="alert alert-danger">  <strong></strong> Incorrect Password</div>';
+            }
+        }else{
+            $message = '<div class="alert alert-danger">  <strong></strong> User Not Found!</div>';
+        }
+    }
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -80,13 +120,12 @@
                 <?PHP
                 if(loggedin()){ ?>
 
-                    <div id="loginContainer">
+                    <div id="loginContainer" >
                         <a href="#" id="loginButton"><span> <?PHP echo $_SESSION['first_name']; ?></span></a>
-                        <div id="loginBox" style="position: absolute;top: 45px;left: 0px;display: none;z-index: 99999;background-color:black; text-decoration: none;">
-                            <ul style="text-decoration: none; padding: 10px; color: green;">
-                                <li><a style="color: #fff;" href="profile.php">Profile</a></li>
-                                <li><a style="color: #fff;" href="messages.php">Messages</a></li>
-                                <li><a style="color: #fff;" href="signout.php">Sign out</a></li>
+                        <div id="loginBox" class="dddiv" style="left: 0px; background: #ffffff; padding: 2px; border-radius: 3px; border: solid 1px #6fd508;">
+                            <ul style="list-style: none;" id="ddui">
+                                <li ><a  href="profile.php">Profile</a></li>
+                                <li ><a  href="logout.php">Sign out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -94,22 +133,22 @@
                 <?php }else{ ?>
                     <div id="loginContainer"><a href="#" id="loginButton"><span>Login</span></a>
                         <div id="loginBox">
-                            <form id="loginForm">
+                            <form id="loginForm" method="post">
                                 <div class="login-grids">
                                     <div class="login-grid-left">
                                         <fieldset id="body">
                                             <fieldset>
                                                 <label for="email">Email Address</label>
-                                                <input type="text" name="email" id="email">
+                                                <input type="text" name="email" required id="email">
                                             </fieldset>
                                             <fieldset>
                                                 <label for="password">Password</label>
-                                                <input type="password" name="password" id="password">
+                                                <input type="password" name="password" required id="password">
                                             </fieldset>
-                                            <input type="submit" id="login" value="Sign in">
-                                           
+                                            <input type="submit" name="login" id="login" value="Sign in">
+
                                         </fieldset>
-                                        
+
                                         <div class="or-grid">
                                             <p>OR</p>
                                         </div>
@@ -132,3 +171,6 @@
     </div>
 </div>
 <!--//header-->
+<?php
+echo $message;
+?>
