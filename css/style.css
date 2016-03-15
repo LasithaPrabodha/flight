@@ -636,7 +636,7 @@ select option{
 .date_btn{
     margin: 1em 0 0 0;
 }
-.date_btn form input[type="submit"] {
+.date_btn input[type="submit"] {
     text-transform: capitalize;
     background: #6fd508;
     color: #FFFFFF;
@@ -645,7 +645,7 @@ select option{
     font-size: 1em;
     outline: none;
 }
-.date_btn form input[type="submit"]:hover{
+.date_btn input[type="submit"]:hover{
     background: #337AB7;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
