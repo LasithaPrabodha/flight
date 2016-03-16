@@ -91,10 +91,8 @@
                 <!--/span-->
                 <div class="span9" id="content">
                     <div class="row-fluid">
-                        <div class="alert alert-success" hidden="">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <h4>Success</h4>
-                            The operation completed successfully</div>
+                        <div id="thanks" >
+                        </div>
                         <div class="navbar">
                             <div class="navbar-inner">
                                 <ul class="breadcrumb">
@@ -127,6 +125,7 @@
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th></th>
                                                 <th>Profile Image</th>
                                                 <th>User Type</th>
                                                 <th>Phone no</th>
@@ -159,11 +158,10 @@
                                                 <tr>
                                                     <td><?PHP echo $id; ?></td>
                                                     <td><?PHP echo $fname . ' ' . $lname; ?></td>
-                                                    <td><?PHP echo $email; ?>
-                                                        <a class="btn btn-danger" href="#myModal" data-toggle="modal" id="<?PHP $email ?>" data-target="#edit-modal" >
+                                                    <td><?PHP echo $email; ?></td>
+                                                    <td><a class="btn btn-info" href="#myModal" data-toggle="modal" id="<?PHP echo $email; ?>" data-target="#edit-modal" >
                                                             Email
-                                                        </a>
-                                                    </td>
+                                                        </a></td>
                                                     <td><?PHP echo $p_img; ?></td>
                                                     <td><?PHP
                                                         if ($user_type == 'U') {
@@ -492,17 +490,17 @@
                             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                         </div>
                         <div class="modal-body edit-content">
-                            ...
+
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <input class="btn btn-success" type="submit" value="Send!" id="submit">
+                            <a href="#" class="btn" data-dismiss="modal">Nah.</a>
                         </div>
                     </div>
                 </div>
             </div>
             <hr>
-            
+
         </div>
 
         <!--/.fluid-container-->
@@ -517,11 +515,31 @@
 
 
         <script>
+            $(document).ready(function () {
+                $("input#submit").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "email.php", //process to mail
+                        data: $('form.contact').serialize(),
+                        success: function (msg) {
+                            $("#thanks").html(msg) //hide button and show thank you
+                            $("#edit-modal").modal('hide'); //hide popup  
+                            $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
+                                $(".alert-success").alert('close');
+                            });
+                        },
+                        error: function () {
+                            alert("failure");
+                        }
+                    });
+                });
+            });
             $('#edit-modal').on('show.bs.modal', function (e) {
 
-                var $modal = $(this),
-                        essay_id = e.relatedTarget.id;
-
+                var $modal = $(this);
+                essay_id = event.target.id;
+                console.log(essay_id);
+//
                 $.ajax({
                     cache: false,
                     type: 'POST',
@@ -546,7 +564,7 @@
             });
 
         </script>
-        
+
     </body>
 
 </html>

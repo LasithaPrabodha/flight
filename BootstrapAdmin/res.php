@@ -31,10 +31,10 @@
             <div class="row-fluid">
                 <div class="span3" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                        <li class="active">
+                        <li >
                             <a href="index.php"><i class="icon-chevron-right"></i>Users</a>
-                        </li>
-                        <li>
+                        </li >
+                        <li class="active">
                             <a href="res.php"><i class="icon-chevron-right"></i>Reservations</a>
                         </li>
                         <li>
