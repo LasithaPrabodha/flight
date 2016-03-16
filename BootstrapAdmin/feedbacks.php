@@ -35,7 +35,7 @@
                             <a href="index.php"><i class="icon-chevron-right"></i>Users</a>
                         </li>
                         <li >
-                            <a href="resr.php"><i class="icon-chevron-right"></i>Reservations</a>
+                            <a href="res.php"><i class="icon-chevron-right"></i>Reservations</a>
                         </li>
                         <li >
                             <a href="flights.php"><i class="icon-chevron-right"></i>Flight Schedules</a>
