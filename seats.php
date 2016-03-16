@@ -309,7 +309,7 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
             $.each($("input[name='seats']:checked"), function(){            
                 seats.push($(this).val());
             });
-            alert(seats);
+           // alert(seats);
             $.ajax({
                     type: "POST",
                     url: "includes/profile_functions.php",
