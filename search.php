@@ -51,7 +51,7 @@
                                     <div class="col-md-3">
                                         <div class="date_btn pull-right" style="margin-top: 0px">
                                             <form action="seats.php" method="get">
-                                                <input type="text" hidden="hidden" name="flight_id" value="<?php echo $row[1] ?>"/>
+                                                <input type="text" hidden="hidden" name="flight_id" value="<?php echo $row[0] ?>"/>
                                                 <input type="text" hidden="hidden" name="class" value="<?php echo $class ?>"/>
                                                 <input type="submit" value="Book Now!" />
                                             </form>
