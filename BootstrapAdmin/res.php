@@ -31,10 +31,10 @@
             <div class="row-fluid">
                 <div class="span3" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                        <li>
+                        <li class="active">
                             <a href="index.php"><i class="icon-chevron-right"></i>Users</a>
                         </li>
-                        <li  class="active">
+                        <li>
                             <a href="res.php"><i class="icon-chevron-right"></i>Reservations</a>
                         </li>
                         <li>
@@ -43,7 +43,7 @@
                         <li>
                             <a href="feedbacks.php"><i class="icon-chevron-right"></i>Feedbacks</a>
                         </li>
-                        
+
                         <!--                        <li>
                                                     <a href="stats.php"><i class="icon-chevron-right"></i> Statistics (Charts)</a>
                                                 </li>
@@ -102,14 +102,46 @@
                             require_once("../includes/sql.php");
 
                             $conexion = db_connect();
+                            $sql2 = "select u.email, b.booking_reference FROM users u join bookings b on u.id= b.user_id WHERE b.booking_id=" . $no;
+                            $result2 = $conexion->query($sql2) or die("oopsy, error when tryin to select ");
+                            $row2 = $result2->fetch_array();
+                            
                             $sql = "DELETE FROM bookings WHERE booking_id='" . $no . "'";
-                            $result = $conexion->query($sql) or die("oopsy, error when tryin to delete ");
+                            $conexion->query($sql) or die("oopsy, error when tryin to delete ");
+
+                            require '../PHPMailer/PHPMailerAutoload.php';
+
+                            $mail = new PHPMailer;
+
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->SMTPAuth = true;
+                            $mail->Username = 'ahasedeyyona@gmail.com';
+                            $mail->Password = 'ahase123';
+                            $mail->SMTPSecure = 'tls';
+
+                            $mail->From = 'ahahahhaa@gmail.com';
+                            $mail->FromName = 'ahahahaaa';
+                            $mail->addAddress($row2['email'], 'lasitha');
+
+                            $mail->addReplyTo($row2['email'], 'lasitha');
+
+                            $mail->WordWrap = 50;
+                            $mail->isHTML(true);
+
+                            $mail->Subject = 'Your Booking Has Been Cancelled';
+                            $mail->Body = "Your booking reference id is '".$row2['booking_reference']."'";
+
+                            if (!$mail->send()) {
+                                echo 'Message could not be sent.';
+                                echo 'Mailer Error: ' . $mail->ErrorInfo;
+                                exit;
+                            }
 
                             echo ' <div class="alert alert-success" >
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <h4>Success</h4>
                             The cancellation has been comlpeted and informed to the user successfully</div>';
-                            mail("lasiprabo@gmail.com","Success","Great, Localhost Mail works");
                         }
                         ?>
                         <div class="navbar">
@@ -186,7 +218,7 @@
                                                     </td>
 
                                                 </tr>
-                                            <?php } ?>
+<?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -515,7 +547,7 @@
                                                             function Delete(id)
                                                             {
                                                                 if (confirm("Are you sure you want to cancel this reservation?") == true)
-                                                                    window.location = "index.php?del=" + id;
+                                                                    window.location = "res.php?del=" + id;
                                                                 return false;
                                                             }
         </script>

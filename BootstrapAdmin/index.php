@@ -101,7 +101,7 @@
                                     <i class="icon-chevron-left hide-sidebar"><a href='#' title="Hide Sidebar" rel='tooltip'>&nbsp;</a></i>
                                     <i class="icon-chevron-right show-sidebar" style="display:none;"><a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a></i>
                                     <li>
-                                        <a href="#">Feedbacks</a> <span class="divider">/</span>	
+                                        <a href="#">Users</a> <span class="divider">/</span>	
                                     </li>
                                     <li>
                                         <a href="#">Settings</a> <span class="divider">/</span>	
@@ -133,7 +133,7 @@
                                                 <th>Address</th>
                                                 <th>Passport no</th>
                                                 <th>Date Registered</th>
-                                                
+
 
                                         </thead>
                                         <tbody>
@@ -155,22 +155,28 @@
                                                 $address = $row['address'];
                                                 $passport_no = $row['passport_no'];
                                                 $date_registered = $row['date_registered'];
-                                             
                                                 ?>
                                                 <tr>
                                                     <td><?PHP echo $id; ?></td>
-                                                    <td><?PHP echo $fname.' '.$lname; ?></td>
-                                                    <td><?PHP echo $email; ?></td>
+                                                    <td><?PHP echo $fname . ' ' . $lname; ?></td>
+                                                    <td><?PHP echo $email; ?>
+                                                        <a class="btn btn-danger" href="#myModal" data-toggle="modal" id="<?PHP $email ?>" data-target="#edit-modal" >
+                                                            Email
+                                                        </a>
+                                                    </td>
                                                     <td><?PHP echo $p_img; ?></td>
-                                                    <td><?PHP if($user_type=='U') 
-                                                        {echo 'User';}
-                                                        elseif($user_type=='A')
-                                                        {echo 'Admin';}?></td>
+                                                    <td><?PHP
+                                                        if ($user_type == 'U') {
+                                                            echo 'User';
+                                                        } elseif ($user_type == 'A') {
+                                                            echo 'Admin';
+                                                        }
+                                                        ?></td>
                                                     <td><?PHP echo $phone; ?></td>
                                                     <td><?PHP echo $address; ?></td>
                                                     <td><?PHP echo $passport_no; ?></td>
                                                     <td><?PHP echo $date_registered; ?></td>
-                                                    
+
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -478,16 +484,57 @@
                                         </div>-->
                 </div>
             </div>
+            <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body edit-content">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <hr>
-
+            
         </div>
+
         <!--/.fluid-container-->
         <script src="vendors/jquery-1.9.1.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="vendors/easypiechart/jquery.easy-pie-chart.js"></script>
         <script src="assets/scripts.js"></script>
 
+<!--        <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link data-require="bootstrap-css@*" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />-->
 
+
+        <script>
+            $('#edit-modal').on('show.bs.modal', function (e) {
+
+                var $modal = $(this),
+                        essay_id = e.relatedTarget.id;
+
+                $.ajax({
+                    cache: false,
+                    type: 'POST',
+                    url: 'backend.php',
+                    data: 'EID=' + essay_id,
+                    success: function (data)
+                    {
+                        $modal.find('.edit-content').html(data);
+                    }
+                });
+
+            })
+        </script>
         <script src="vendors/datatables/js/jquery.dataTables.min.js"></script>
 
 
@@ -497,8 +544,9 @@
                 // Easy pie charts
                 $('.chart').easyPieChart({animate: 1000});
             });
-            
+
         </script>
+        
     </body>
 
 </html>
