@@ -133,6 +133,8 @@
 </div>
 <script defer src="js/jquery.flexslider.js"></script>
 <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript">
     $(function(){

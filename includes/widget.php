@@ -33,7 +33,7 @@
                                     <h5>Flying from</h5>
                                     <div class="book_date">
                                         <select id="depature" name="depature" >
-                                            <option value="0">Any</option>
+                                            <option value="0">Select a Location</option>
                                             <?php  $sql = "SELECT DISTINCT depature FROM flights";
                                             $rs = $conexion->query($sql);
                                             $rows = $rs->fetch_all();
@@ -52,7 +52,7 @@
                                     <div class="book_date">
 
                                         <select id="depature" name="destination" >
-                                            <option value="0">Any</option>
+                                            <option value="0">Select a Destination</option>
                                             <?php  $sql = "SELECT DISTINCT destination FROM flights";
                                             $rs = $conexion->query($sql);
                                             $rows = $rs->fetch_all();
