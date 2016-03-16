@@ -22,33 +22,45 @@
         if($_GET['depature'] =='0' || $_GET['depature']== '0' ||  $_GET['dep-date']== "Select date"){
             $message = '<div class="alert alert-danger"> Please Select Departure location, Destination and Departure Date</div>';
             echo $message;
-        }else{ ?>
-
-            <div class="search-res col-md-12">
-                <div class="col-md-8 col-md-offset-2" style="margin-top: 20px; margin-bottom: 10px">
-                    <h3>Here are The flights we found for you!</h3>
-                </div>
-
-            <?php
+        }else{
             $dep =$_GET['depature'];
             $dest =$_GET['destination'];
             $class =  $_GET['class'];
-            $dept_date =str_replace('/','-',$_GET['dep-date']);
-            $sql = "SELECT * from flights WHERE depature='". $dep ."' AND destination='" . $dest . "' AND depature_date >" . $dept_date;
+            $date = DateTime::createFromFormat('m/d/Y', $_GET['dep-date']);
+            $newDate = $date->format('Y-m-d');
 
+            $sql = "SELECT * from flights WHERE depature='". $dep ."' AND destination='" . $dest . "' AND depature_date >= '".$newDate."'";
 
             $rs = $conexion->query($sql);
             $rows = $rs->fetch_all();
             if (!empty($rows)) {
+                ?>
+
+            <div class="search-res col-md-12">
+                <div class="col-md-8 col-md-offset-4" style="margin-top: 20px; margin-bottom: 10px">
+                    <h3>Here are The flights we found for you!</h3>
+                </div>
+
+                <?php
                 foreach ($rows as $row) {
                     ?>
                     <div class="col-md-8 col-md-offset-2" style="background: #ffffff;padding: 1em; margin-top: 10px; box-shadow: 0 0 1px #CECECE; ">
                             <div class="">
                                 <div class="col-md-12">
                                     <div class="col-md-3" style="padding: 5px ;margin: 0"><?php echo $row[3] ?></div>
-                                    <div class="col-md-3" style="padding: 5px ;margin: 0">To</div>
-                                    <div class="col-md-3" style="padding: 5px ;margin: 0"><?php echo $row[4] ?></div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2" style="padding: 5px ;margin: 0">To</div>
+                                    <div class="col-md-4" style="padding: 5px ;margin: 0"><?php echo $row[4] ?></div>
+                                    <div class="col-md-2">
+
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12" >
+                                    <div class="col-md-2" style="background: #F4F7F9; padding: 7px ;margin: 0">Airlines :</div>
+                                    <div class="col-md-3" style="background: #F4F7F9; padding: 7px ;margin: 0"><?php echo $row[2] ?></div>
+                                    <div class="col-md-2" style="background: #F4F7F9; padding: 7px ;margin: 0">|     Departure :</div>
+                                    <div class="col-md-3" style="background: #F4F7F9; padding: 7px ;margin: 0: 4px"><?php echo $row[5] ?></div>
+                                    <div class="col-md-2" >
                                         <div class="date_btn pull-right" style="margin-top: 0px">
                                             <form action="seats.php" method="get">
                                                 <input type="text" hidden="hidden" name="flight_id" value="<?php echo $row[0] ?>"/>
@@ -58,14 +70,6 @@
 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-md-12" >
-                                    <div class="col-md-2" style="background: #F4F7F9; padding: 5px ;margin: 0">Airlines :</div>
-                                    <div class="col-md-3" style="background: #F4F7F9; padding: 5px ;margin: 0"><?php echo $row[2] ?></div>
-                                    <div class="col-md-2" style="background: #F4F7F9; padding: 5px ;margin: 0">|     Departure :</div>
-                                    <div class="col-md-3" style="background: #F4F7F9; padding: 5px ;margin: 0: 4px"><?php echo $row[5] ?></div>
-                                    <div class="col-md-2" ></div>
                                 </div>
                                 <div class="col-md-12" >
                                     <div class="col-md-2" style="padding: 5px ;margin: 0">Business (Adult) :</div>
@@ -84,7 +88,12 @@
                             </div>
                     </div>
 
-                <?php }}}} echo "</div>"  ?>
+                <?php }}else{ ?>
+                <div class="col-md-5 col-md-offset-5" style="margin-top: 20px; margin-bottom: 10px">
+                    <h3 style="color: #980000;">No Results found!</h3>
+                </div>
+                <?php
+            }}} echo "</div>"  ?>
 
 
 
