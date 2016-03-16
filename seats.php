@@ -3,21 +3,40 @@
 if (!loggedin()) {
     die("<script>location.href = 'index.php'</script>");
 }
- if ((isset($_POST['reserve']))  && (!empty($_SESSION['seats']))) { //Save an apointment : For Patients
+if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight_id']))&&(!empty($_GET['class']))) {
+
+    $flight_id = $_GET['flight_id'];
+    $class = $_GET['class'];
+
+    $_SESSION['flight_id'] = $flight_id;
+    $_SESSION['class'] = $class;
+}else{
+    die("<script>location.href = 'index.php'</script>");
+}
+
+ if ((isset($_POST['reserve']))  && (!empty($_SESSION['seats'])) &&(!empty($_SESSION['flight_id']))&&(!empty($_SESSION['class']))) { //Save an apointment : For Patients
             $conexion = db_connect();
             $slot=  array();
             $slot = $_SESSION['seats'];
-            $flight_id = 1;
+            $flight_id = $_SESSION['flight_id'];
+            
+            $sql = "SELECT * FROM flights where id='$flight_id'";
+            $result = $conexion->query($sql);
+            $rows = $result->fetch_array();
+           // $price=$rows['b_price'];
+           
             
             
-            $price= '6789';
-            $class = 'e';
+           
+            $class = $_SESSION['class'];
             if($class=='b'){
                 
                 $ssql='b_seat_booked';
+               $price=$rows['b_price'];
             }else if($class=='e'){
                 
                 $ssql='e_seat_booked';
+               $price=$rows['e_price'];
             }
 
 
@@ -37,15 +56,14 @@ if (!loggedin()) {
             $seats_booked= implode(',', $slot);
             $sql3 = "insert into bookings (user_id,flight_id,booking_reference,class,seat_no,amount) values('{$_SESSION['id']}','$flight_id','$ref_id','$class','$seats_booked','$price')";
              if ($conexion->query($sql3)) {
-//                    $appointmentid = $conexion->insert_id;
-//                    $sql = "INSERT INTO `patient_payments`(`user_id`, `appoinment_id`, `doctor_id`, `amount`) VALUES ('{$_SESSION['user_id']}','$appointmentid','$id','$fee')";
-//                    $conexion->query($sql);
-//                    $updt_pay = "update doc_pay set appoi_no=appoi_no+1, tot_amnt=tot_amnt+$fee where doc_id='$id'";
-//                    $conexion->query($updt_pay);
+                   $bookingid = $conexion->insert_id;
+                  $sql = "INSERT INTO `booking_payments`(`user_id`, `flight_id`,`booking_id`,`amount`) VALUES ('{$_SESSION['id']}','$flight_id','$bookingid','$price')";
+                  if($conexion->query($sql)){
+                 
                     echo "<div class='alert alert-success'>Seat(s) Booked successfully!.Your Ticket will be sent to your Email.</div>";
 //                    $_SESSION['radioval'] = '';
-//                }
-                $_SESSION['seats']='';
+                }
+                
                 
             };
         }}
@@ -62,12 +80,17 @@ if (!loggedin()) {
 					
 								
                                                                 
-                                                                <form id="loginForm" name="seatsfrm" action="" method="post" style="margin:auto;width:100%; border: none !important;"><b> 
+                                                                <form id="loginForm" name="seatsfrm" action="" method="post" style="margin:auto;width:100%; border: none !important;">
                                    <?php
-                                    $sql1 = "SELECT b_price,e_price,b_seat_count,e_seat_count,b_seat_booked,e_seat_booked from flights  where id='1'";
+                                    $sql1 = "SELECT flight_no,airline,depature,destination,depature_date,b_price,e_price,b_seat_count,e_seat_count,b_seat_booked,e_seat_booked from flights  where id='{$_SESSION['flight_id']}'";
                                     $result = $conexion->query($sql1);
                                     $row = $result->fetch_array();
-                                    $class='e';
+                                    $flight_no = $row['flight_no'];
+                                    $airline = $row['airline'];
+                                    $depature = $row['depature'];
+                                    $destination = $row['destination'];
+                                    $depature_date = $row['depature_date'];
+                                    $class=$_SESSION['class'];
                                     $b_booked =explode(',', $row['b_seat_booked']);
                                     $e_booked =explode(',', $row['e_seat_booked']);
                                     $b_price = $row['b_price'];
@@ -79,20 +102,43 @@ if (!loggedin()) {
                                        $booked= $e_booked;
                                        $price= $e_price;
                                        $seat_count= $e_seat_count;
+                                       $class_name='ECONOMY';
                                     }else if($class=='b'){
                                        $booked= $b_booked;
                                        $price= $b_price;
                                        $seat_count= $b_seat_count;
+                                       $class_name='BUSINESS';
                                     }
-                                   
-
-                                   echo "Seat fee is : Rs." . $price . ".00/= <br>";
+                                
                                     
-                                    $_SESSION['price'] = $price;
-                                    $_SESSION['class'] = 'e';
                                     ?>
-                                </b> <br>
+                               <div class="col-md-12" >
+                                    <div class="col-md-2" style="background: #F4F7F9; padding: 5px ;margin: 0">Airlines :</div>
+                                    <div class="col-md-3" style="background: #F4F7F9; padding: 5px ;margin: 0"><?php echo $airline;?></div>
+                                    <div class="col-md-2" style="background: #F4F7F9; padding: 5px ;margin: 0">|    Flight No :</div>
+                                    <div class="col-md-3" style="background: #F4F7F9; padding: 5px ;margin: 0: 4px"><?php echo $flight_no;?></div>
+                                    <div class="col-md-2" ></div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="col-md-2" style="padding: 5px ;margin: 0">Departure :</div>
+                                    <div class="col-md-3" style="padding: 5px ;margin: 0"><?php echo $depature; ?></div>
+                                    <div class="col-md-3" style="padding: 5px ;margin: 0">|     Destination :</div>
+                                    <div class="col-md-3" style="padding: 5px ;margin: 0: 4px"><?php echo $destination; ?></div>
+                                    <div class="col-md-1" ></div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="col-md-2" style="padding: 5px ;margin: 0">Departure Date :</div>
+                                    <div class="col-md-3" style="padding: 5px ;margin: 0"><?php echo $depature_date ?></div>
+                                    <div class="col-md-3" style="padding: 5px ;margin: 0">|     Class :</div>
+                                    <div class="col-md-3" style="padding: 5px ;margin: 0: 4px"><?php echo $class_name; ?></div>
+                                    <div class="col-md-1" ></div>
+                                </div>
+                                                                    <div class="clearfix"></div>
+                               <br>
+                               <br>
+                               <b><?php echo "Ticket price per person : Rs." . $price . ".00/=";?></b>
                                 <hr/>
+                                
 
                                 <table class="table-striped" style="width:100%">
                                     
