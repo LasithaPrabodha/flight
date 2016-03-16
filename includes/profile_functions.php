@@ -28,11 +28,11 @@ if(isset($_POST['status'])){
     echo json_encode($aResult);
 }
 
-if(isset($_POST['radioval'])){
+if(isset($_POST['seats'])){
     
     
-    $_SESSION['radioval'] = $_POST['radioval'];
-    echo json_encode($_SESSION['radioval']);
+    $_SESSION['seats'] = $_POST['seats'];
+    echo json_encode($_SESSION['seats']);
 }
     
     

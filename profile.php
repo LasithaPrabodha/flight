@@ -1,5 +1,9 @@
 <?PHP include_once('includes/header.php') ?>
 <?php
+
+if (!loggedin()) {
+    die("<script>location.href = 'index.php'</script>");
+}
 $id = $_SESSION['id'];
 $sql = "SELECT * FROM users where id = $id";
 $result = $conexion->query($sql);

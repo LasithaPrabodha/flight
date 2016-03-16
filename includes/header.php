@@ -111,17 +111,13 @@ if(isset($_POST['login']))
     $(document).ready(function () {
             $('#bookings_tab').DataTable();
 
-        });
-
-
-</script>
-    <script type="text/javascript">
-        $(document).ready(function () {
             $('#horizontalTab').easyResponsiveTabs({
                 type: 'default', //Types: default, vertical, accordion
                 width: 'auto', //auto or any width like 600px
                 fit: true   // 100% fit in a container
             });
+            
+            
         });
         
         
