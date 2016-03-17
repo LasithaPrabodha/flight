@@ -6,7 +6,8 @@ if (!loggedin()) {
 
 require_once("includes/header.php");
 if (isset($_GET['key'])&&(!empty ($_GET['key']))) {
-    $key = $_GET['key'];
+    $key = trim($_GET['key']);
+    
     $sql = "SELECT b.booking_id,b.booking_reference,b.date_created ,b.class,b.seat_no,b.amount,f.flight_no,f.airline,f.depature,f.destination,f.depature_date FROM bookings b,flights f where b.flight_id=f.id and b.booking_id=$key";
 $result = $conexion->query($sql);
 if ($result->num_rows > 0) {
@@ -66,7 +67,8 @@ if ($result1->num_rows > 0) {
         
     }
 }else if(isset($_GET['ref'])&&(!empty ($_GET['ref']))){
-    $ref = $_GET['ref'];
+    $ref = trim($_GET['ref']);
+    	
     $sql = "SELECT b.booking_id,b.booking_reference,b.date_created ,b.class,b.seat_no,b.amount,f.flight_no,f.airline,f.depature,f.destination,f.depature_date FROM bookings b,flights f where b.user_id='{$_SESSION['id']}' and b.flight_id=f.id and b.booking_reference='$ref'";
 $result = $conexion->query($sql);
 if ($result->num_rows > 0) {

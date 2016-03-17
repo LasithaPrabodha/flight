@@ -69,16 +69,16 @@
             <div class="news-letter">
                 <div class="news-letter-grids">
                     <div class="col-md-4 news-letter-grid">
-                        <p>Toll Free No : <span>1234-5678-901</span></p>
+                      
                     </div>
                     <div class="col-md-4 news-letter-grid">
-                        <p class="mail">Email : <a href="mailto:info@example.com">mail@example.com</a></p>
+                       
                     </div>
                     <div class="col-md-4 news-letter-grid">
-                        <form>
+<!--                        <form>
                             <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
                             <input type="submit" value="Subscribe">
-                        </form>
+                        </form>-->
                     </div>
                     <div class="clearfix"> </div>
                 </div>
@@ -93,7 +93,7 @@
     <!-- container -->
     <div class="container">
         <div class="footer-bottom-top-grids">
-            <div class="col-md-4 footer-bottom-left">
+<!--            <div class="col-md-4 footer-bottom-left">
                 <h4>Download our mobile Apps</h4>
                 <div class="d-apps">
                     <ul>
@@ -102,9 +102,9 @@
                         <li><a href="#"><img src="images/app3.png" alt="" /></a></a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="col-md-4 footer-bottom-left">
-                <h4>We Accept</h4>
+            </div>-->
+            <!--<div class="col-md-4 footer-bottom-left">-->
+<!--                <h4>We Accept</h4>
                 <div class="a-cards">
                     <ul>
                         <li><a href="#"><img src="images/c1.png" alt="" /></a></li>
@@ -123,7 +123,7 @@
                         <li><a href="#" class="facebook dribbble"> </a></li>
                     </ul>
                 </div>
-            </div>
+            </div>-->
             <div class="clearfix"> </div>
             <div class="copyright">
                 <p>Copyrights © 2015</p>

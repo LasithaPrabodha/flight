@@ -137,10 +137,10 @@ if(isset($_POST['login']))
             <!--navbar-header-->
             <div class="header-dropdown">
                 <div class="emergency-grid">
-                    <ul>
+<!--                    <ul>
                         <li>Toll Free : </li>
                         <li class="call">+1 234 567 8901</li>
-                    </ul>
+                    </ul>-->
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -176,6 +176,7 @@ if(isset($_POST['login']))
                             <ul style="list-style: none;" id="ddui">
                                 <li ><a  href="profile.php">Profile</a></li>
                                 <li ><a  href="logout.php">Sign out</a></li>
+                                <li ><a  href="feedback.php">Feedback</a></li>
                             </ul>
                         </div>
                     </div>

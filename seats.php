@@ -11,7 +11,7 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
     $_SESSION['flight_id'] = $flight_id;
     $_SESSION['class'] = $class;
 }else{
-    die("<script>location.href = 'index.php'</script>");
+    //die("<script>location.href = 'index.php'</script>");
 }
 
  if ((isset($_POST['reserve']))  && (!empty($_SESSION['seats'])) &&(!empty($_SESSION['flight_id']))&&(!empty($_SESSION['class']))) { //Save an apointment : For Patients
@@ -26,11 +26,11 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
            // $price=$rows['b_price'];
             
             
-            $airline = $row['airline'];
-            $flight_no = $row['flight_no'];
-            $depature = $row['depature'];
-            $destination = $row['destination'];
-            $depature_date = $row['depature_date'];
+            $airline = $rows['airline'];
+            $flight_no = $rows['flight_no'];
+            $depature = $rows['depature'];
+            $destination = $rows['destination'];
+            $depature_date = $rows['depature_date'];
            
             $class = $_SESSION['class'];
             if($class=='b'){
@@ -69,7 +69,7 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
                   if($conexion->query($sql)){
                       require '/PHPMailer/PHPMailerAutoload.php';
                         $subject = strip_tags('E-ticket');
-                        $email = strip_tags('arunthms01@gmail.com');
+                        $email = strip_tags($_SESSION['email']);
                         $message = '<html><body>';
                         $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
                         $message .= "<tr style='background: #eee;'><td><strong>Your E-ticket details</strong> </td><td></td></tr>";
@@ -114,7 +114,7 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
                         exit;
                     }
                  
-                   // die("<script>location.href = 'booking-success.php'</script>");
+                    die("<script>location.href = 'booking-success.php'</script>");
 //                    $_SESSION['radioval'] = '';
                 }
                 
