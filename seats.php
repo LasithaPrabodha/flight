@@ -26,17 +26,23 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
            // $price=$rows['b_price'];
             
             
-            
+            $airline = $row['airline'];
+            $flight_no = $row['flight_no'];
+            $depature = $row['depature'];
+            $destination = $row['destination'];
+            $depature_date = $row['depature_date'];
            
             $class = $_SESSION['class'];
             if($class=='b'){
                 
                 $ssql='b_seat_booked';
                $price=$rows['b_price'];
+               $class_name='BUSINESS';
             }else if($class=='e'){
                 
                 $ssql='e_seat_booked';
                $price=$rows['e_price'];
+               $class_name='ECONOMY';
             }
 
 
@@ -51,16 +57,64 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
 
             $sql2 = "UPDATE flights SET ".$ssql."='" . implode(',', $merge) . "' where id='$flight_id' ";
             if ($result = $conexion->query($sql2)) {
-                
+             
+            $passengers=  sizeof($slot);
+            $tot_price=$passengers*$price;
             $ref_id = uniqid();
             $seats_booked= implode(',', $slot);
-            $sql3 = "insert into bookings (user_id,flight_id,booking_reference,class,seat_no,amount) values('{$_SESSION['id']}','$flight_id','$ref_id','$class','$seats_booked','$price')";
+            $sql3 = "insert into bookings (user_id,flight_id,booking_reference,class,seat_no,amount) values('{$_SESSION['id']}','$flight_id','$ref_id','$class','$seats_booked','$tot_price')";
              if ($conexion->query($sql3)) {
                    $bookingid = $conexion->insert_id;
-                  $sql = "INSERT INTO `booking_payments`(`user_id`, `flight_id`,`booking_id`,`amount`) VALUES ('{$_SESSION['id']}','$flight_id','$bookingid','$price')";
+                  $sql = "INSERT INTO `booking_payments`(`user_id`, `flight_id`,`booking_id`,`amount`) VALUES ('{$_SESSION['id']}','$flight_id','$bookingid','$tot_price')";
                   if($conexion->query($sql)){
+                      require '/PHPMailer/PHPMailerAutoload.php';
+                        $subject = strip_tags('E-ticket');
+                        $email = strip_tags('arunthms01@gmail.com');
+                        $message = '<html><body>';
+                        $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+                        $message .= "<tr style='background: #eee;'><td><strong>Your E-ticket details</strong> </td><td></td></tr>";
+                        $message .= "<tr><td><strong>Referenace No:</strong> </td><td>" . $ref_id . "</td></tr>";
+                        $message .= "<tr><td><strong>Flight No:</strong> </td><td>" . $flight_no . "</td></tr>";
+                        $message .= "<tr><td><strong>Airline:</strong> </td><td>" . $airline . "</td></tr>";
+                        $message .= "<tr><td><strong>Seat No(s):</strong> </td><td>" . $seats_booked . "</td></tr>";
+                        $message .= "<tr><td><strong>Class:</strong> </td><td>" . $class_name . "</td></tr>";
+                        $message .= "<tr><td><strong>Departure Date:</strong> </td><td>" . $depature_date . "</td></tr>";
+                        $message .= "<tr><td><strong>Departure:</strong> </td><td>" . $depature . "</td></tr>";
+                        $message .= "<tr><td><strong>Destination:</strong> </td><td>" . $destination . "</td></tr>";
+                        $message .= "<tr><td><strong>Passengers :</strong> </td><td>" . $passengers . "</td></tr>";
+                        $message .= "<tr><td><strong>Ticket amount:</strong> </td><td>" . $price . "</td></tr>";
+                        $message .= "<tr><td><strong>Total amount:</strong> </td><td>" . $tot_price . "</td></tr>";
+                        $message .= "</table>";
+                        $message .= "</body></html>";
+                   
+                    $mail = new PHPMailer;
+
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'ahasedeyyona@gmail.com';
+                    $mail->Password = 'ahase123';
+                    $mail->SMTPSecure = 'tls';
+
+                    $mail->From = 'ahahahhaa@gmail.com';
+                    $mail->FromName = 'FlightBooking';
+                    $mail->addAddress($email, 'lasitha');
+
+                    $mail->addReplyTo($email, 'lasitha');
+
+//                    $mail->WordWrap = 50;
+                    $mail->isHTML(true);
+
+                    $mail->Subject = $subject;
+                    $mail->Body = $message;
+
+                    if (!$mail->send()) {
+                        echo 'Message could not be sent.';
+                        echo 'Mailer Error: ' . $mail->ErrorInfo;
+                        exit;
+                    }
                  
-                    die("<script>location.href = 'booking-success.php'</script>");
+                   // die("<script>location.href = 'booking-success.php'</script>");
 //                    $_SESSION['radioval'] = '';
                 }
                 
