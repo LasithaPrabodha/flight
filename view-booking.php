@@ -49,7 +49,43 @@ if ($result1->num_rows > 0) {
 }
     $c_key = $_GET['cancel_k'];
     $sql = "DELETE FROM `bookings` WHERE booking_id=$c_key";
-    $booking_id = '';
+    
+    if($result = $conexion->query($sql)){
+        echo "<div class='alert alert-success'>Booking <b>".$booking_referance."</b> has been succesfully Canceled.Amount of <b> Rs.".$amount."<b> has been succesfully refunded back to your bank account.</div>";
+        	
+                      require '/PHPMailer/PHPMailerAutoload.php';
+                        $subject = strip_tags('E-ticket');
+                        $email = strip_tags($_SESSION['email']);
+                        $message = "<p>Booking <b>".$booking_referance."</b> has been succesfully Canceled.Amount of <b> Rs.".$amount."</b> has been succesfully refunded back to your bank account.Thank You!</p>";
+                       
+                   
+                    $mail = new PHPMailer;
+
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'ahasedeyyona@gmail.com';
+                    $mail->Password = 'ahase123';
+                    $mail->SMTPSecure = 'tls';
+
+                    $mail->From = 'ahahahhaa@gmail.com';
+                    $mail->FromName = 'FlightBooking';
+                    $mail->addAddress($email, 'lasitha');
+
+                    $mail->addReplyTo($email, 'lasitha');
+
+                    $mail->WordWrap = 50;
+                    $mail->isHTML(true);
+
+                    $mail->Subject = $subject;
+                    $mail->Body = $message;
+
+                    if (!$mail->send()) {
+                        echo 'Message could not be sent.';
+                        echo 'Mailer Error: ' . $mail->ErrorInfo;
+                        exit;
+                    }
+                $booking_id = '';
         $booking_referance = '';
         $date_booked = '';
         $class_t = '';
@@ -61,11 +97,10 @@ if ($result1->num_rows > 0) {
         $destination = '';
         $depature_date = '';
         $class = "";
-    if($result = $conexion->query($sql)){
-        echo "<div class='alert alert-success'>Booking <b>".$booking_referance."</b> has been succesfully Canceled.Amount of <b> Rs.".$amount."<b> has been succesfully refunded back to your bank account.</div>";
+        
     die("<script>location.href = 'profile.php'</script>");
         
-    }
+    }  
 }else if(isset($_GET['ref'])&&(!empty ($_GET['ref']))){
     $ref = trim($_GET['ref']);
     	

@@ -174,21 +174,21 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
                                     <div class="col-md-2" style="background: #F4F7F9; padding: 5px ;margin: 0">Airlines :</div>
                                     <div class="col-md-3" style="background: #F4F7F9; padding: 5px ;margin: 0"><?php echo $airline;?></div>
                                     <div class="col-md-2" style="background: #F4F7F9; padding: 5px ;margin: 0">|    Flight No :</div>
-                                    <div class="col-md-3" style="background: #F4F7F9; padding: 5px ;margin: 0: 4px"><?php echo $flight_no;?></div>
+                                    <div class="col-md-3" style="background: #F4F7F9; padding: 5px ;margin:  4px"><?php echo $flight_no;?></div>
                                     <div class="col-md-2" ></div>
                                 </div>
                                 <div class="col-md-12" >
                                     <div class="col-md-2" style="padding: 5px ;margin: 0">Departure :</div>
                                     <div class="col-md-3" style="padding: 5px ;margin: 0"><?php echo $depature; ?></div>
                                     <div class="col-md-3" style="padding: 5px ;margin: 0">|     Destination :</div>
-                                    <div class="col-md-3" style="padding: 5px ;margin: 0: 4px"><?php echo $destination; ?></div>
+                                    <div class="col-md-3" style="padding: 5px ;margin:  4px"><?php echo $destination; ?></div>
                                     <div class="col-md-1" ></div>
                                 </div>
                                 <div class="col-md-12" >
                                     <div class="col-md-2" style="padding: 5px ;margin: 0">Departure Date :</div>
                                     <div class="col-md-3" style="padding: 5px ;margin: 0"><?php echo $depature_date ?></div>
                                     <div class="col-md-3" style="padding: 5px ;margin: 0">|     Class :</div>
-                                    <div class="col-md-3" style="padding: 5px ;margin: 0: 4px"><?php echo $class_name; ?></div>
+                                    <div class="col-md-3" style="padding: 5px ;margin: 4px"><?php echo $class_name; ?></div>
                                     <div class="col-md-1" ></div>
                                 </div>
                                                                     <div class="clearfix"></div>
