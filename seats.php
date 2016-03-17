@@ -3,7 +3,7 @@
 if (!loggedin()) {
     die("<script>location.href = 'index.php'</script>");
 }
-if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight_id']))&&(!empty($_GET['class']))) {
+if ((isset($_GET['flight_id'])) && (isset($_GET['class'])) && (!empty($_GET['flight_id'])) && (!empty($_GET['class']))) {
 
     $flight_id = $_GET['flight_id'];
     $class = $_GET['class'];
@@ -137,7 +137,7 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
                                                                 <form id="loginForm" name="seatsfrm" action="" method="post" style="margin:auto;width:100%; border: none !important;">
                                    <?php
                                     $sql1 = "SELECT flight_no,airline,depature,destination,depature_date,b_price,e_price,b_seat_count,e_seat_count,b_seat_booked,e_seat_booked from flights  where id='{$_SESSION['flight_id']}'";
-                                    $result = $conexion->query($sql1);
+                                   $result = $conexion->query($sql1);
                                     $row = $result->fetch_array();
                                     $flight_no = $row['flight_no'];
                                     $airline = $row['airline'];
@@ -165,8 +165,6 @@ if ((isset($_GET['flight_id']))&& (isset($_GET['class']))&&(!empty($_GET['flight
                                     }
                                    
 
-                                   echo "Seat fee is : Rs." . $price . ".00/= <br>";
-                                    
                                     $_SESSION['price'] = $price;
                                     $_SESSION['class'] = 'e';
                                     ?>
