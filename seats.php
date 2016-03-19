@@ -11,7 +11,7 @@ if ((isset($_GET['flight_id'])) && (isset($_GET['class'])) && (!empty($_GET['fli
     $_SESSION['flight_id'] = $flight_id;
     $_SESSION['class'] = $class;
 }else{
-    //die("<script>location.href = 'index.php'</script>");
+    die("<script>location.href = 'index.php'</script>");
 }
 
  if ((isset($_POST['reserve']))  && (!empty($_SESSION['seats'])) &&(!empty($_SESSION['flight_id']))&&(!empty($_SESSION['class']))) { //Save an apointment : For Patients

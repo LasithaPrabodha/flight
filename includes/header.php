@@ -151,7 +151,7 @@ if(isset($_POST['login']))
                 <span class="menu"><img src="images/menu.png" alt="" /></span>
                 <ul class="nav1">
                     <li class="active"><a href="index.php">Home</a></li>
-                    <li><a href="deals.php">Deals</a></li>
+                    <li><a href="feedback.php">Feedback</a></li>
                 </ul>
                 <div class="clearfix"> </div>
                 <!-- script-for-menu -->
