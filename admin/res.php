@@ -7,7 +7,7 @@
     }
     ?>
     <head>
-        <title>Users</title>
+        <title>Admin Home Page</title>
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
@@ -31,75 +31,85 @@
             <div class="row-fluid">
                 <div class="span3" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                        <li class="active">
-                            <a href="index.php"><i class="icon-chevron-right"></i>Users</a>
-                        </li>
                         <li >
+                            <a href="index.php"><i class="icon-chevron-right"></i>Users</a>
+                        </li >
+                        <li class="active">
                             <a href="res.php"><i class="icon-chevron-right"></i>Reservations</a>
                         </li>
-                        <li >
+                        <li>
                             <a href="flights.php"><i class="icon-chevron-right"></i>Flight Schedules</a>
                         </li>
                         <li>
-                            <a href="feedbacks.php"><i class="icon-chevron-right"></i>Feedbacks</a>
+                            <a href="feedbacks.php"><i class="icon-chevron-right"></i>Feedback</a>
                         </li>
-                        <!--                        <li>
-                                                    <a href="stats.php"><i class="icon-chevron-right"></i> Statistics (Charts)</a>
-                                                </li>
-                                                <li>
-                                                    <a href="form.php"><i class="icon-chevron-right"></i> Forms</a>
-                                                </li>
-                                                <li>
-                                                    <a href="tables.php"><i class="icon-chevron-right"></i> Tables</a>
-                                                </li>
-                                                <li>
-                                                    <a href="buttons.php"><i class="icon-chevron-right"></i> Buttons & Icons</a>
-                                                </li>
-                                                <li>
-                                                    <a href="editors.php"><i class="icon-chevron-right"></i> WYSIWYG Editors</a>
-                                                </li>
-                                                <li>
-                                                    <a href="interface.php"><i class="icon-chevron-right"></i> UI & Interface</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-success pull-right">731</span> Orders</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-success pull-right">812</span> Invoices</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">27</span> Clients</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">1,234</span> Users</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">2,221</span> Messages</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">11</span> Reports</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-important pull-right">83</span> Errors</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-warning pull-right">4,231</span> Logs</a>
-                                                </li>-->
+
+                     
                     </ul>
                 </div>
 
                 <!--/span-->
                 <div class="span9" id="content">
                     <div class="row-fluid">
-                        <div id="thanks" >
-                        </div>
+                        <?PHP
+                        if (isset($_GET['del'])) {
+                            $no = $_GET['del'];
+                            delete($no);
+                        }
+
+                        function delete($no) {
+                            require_once("../includes/sql.php");
+
+                            $conexion = db_connect();
+                            $sql2 = "select u.email, b.booking_reference FROM users u join bookings b on u.id= b.user_id WHERE b.booking_id=" . $no;
+                            $result2 = $conexion->query($sql2) or die("oopsy, error when tryin to select ");
+                            $row2 = $result2->fetch_array();
+                            
+                            $sql = "DELETE FROM bookings WHERE booking_id='" . $no . "'";
+                            $conexion->query($sql) or die("oopsy, error when tryin to delete ");
+
+                            require '../PHPMailer/PHPMailerAutoload.php';
+
+                            $mail = new PHPMailer;
+
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->SMTPAuth = true;
+                            $mail->Username = 'ahasedeyyona@gmail.com';
+                            $mail->Password = 'ahase123';
+                            $mail->SMTPSecure = 'tls';
+
+                            $mail->From = 'ahahahhaa@gmail.com';
+                            $mail->FromName = 'ahahahaaa';
+                            $mail->addAddress($row2['email'], 'lasitha');
+
+                            $mail->addReplyTo($row2['email'], 'lasitha');
+
+                            $mail->WordWrap = 50;
+                            $mail->isHTML(true);
+
+                            $mail->Subject = 'Your Booking Has Been Cancelled';
+                            $mail->Body = "Your booking reference id is '".$row2['booking_reference']."'";
+
+                            if (!$mail->send()) {
+                                echo 'Message could not be sent.';
+                                echo 'Mailer Error: ' . $mail->ErrorInfo;
+                                exit;
+                            }
+
+                            echo ' <div class="alert alert-success" >
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h4>Success</h4>
+                            The cancellation has been comlpeted and informed to the user successfully</div>';
+                        }
+                        ?>
                         <div class="navbar">
                             <div class="navbar-inner">
                                 <ul class="breadcrumb">
                                     <i class="icon-chevron-left hide-sidebar"><a href='#' title="Hide Sidebar" rel='tooltip'>&nbsp;</a></i>
                                     <i class="icon-chevron-right show-sidebar" style="display:none;"><a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a></i>
                                     <li>
-                                        <a href="#">Users</a> <span class="divider">/</span>	
+                                        <a href="#">Reservations</a> <span class="divider">/</span>	
                                     </li>
                                     <li>
                                         <a href="#">Settings</a> <span class="divider">/</span>	
@@ -114,69 +124,60 @@
                         <!-- block -->
                         <div class="block">
                             <div class="navbar navbar-inner block-header">
-                                <div class="muted pull-left">Feedbacks</div>
+                                <div class="muted pull-left">Reservations</div>
                             </div>
                             <div class="block-content collapse in">
                                 <div class="span12">
 
-                                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="res1">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
+                                                <th>Booking ID</th>
+                                                <th>User ID</th>
+                                                <th>Flight ID</th>
+                                                <th>Booking Reference</th>
+                                                <th>Class</th>
+                                                <th>Seat No</th>
+                                                <th>Amount</th>
+                                                <th>Date Booked</th>
                                                 <th></th>
-                                                <th>Profile Image</th>
-                                                <th>User Type</th>
-                                                <th>Phone no</th>
-                                                <th>Address</th>
-                                                <th>Passport no</th>
-                                                <th>Date Registered</th>
-
-
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             include_once("../includes/sql.php");
                                             $conexion = db_connect();
 
-                                            $sql = "SELECT * FROM users";
+                                            $sql = "SELECT * FROM bookings order by flight_id";
                                             $result = $conexion->query($sql);
 
                                             while ($row = $result->fetch_array()) {
-                                                $id = $row['id'];
-                                                $fname = $row['first_name'];
-                                                $lname = $row['last_name'];
-                                                $email = $row['email'];
-                                                $p_img = $row['profile_image'];
-                                                $user_type = $row['user_type'];
-                                                $phone = $row['phone'];
-                                                $address = $row['address'];
-                                                $passport_no = $row['passport_no'];
-                                                $date_registered = $row['date_registered'];
+                                                $booking_id = $row['booking_id'];
+                                                $user_id = $row['user_id'];
+                                                $flight_id = $row['flight_id'];
+                                                $booking_reference = $row['booking_reference'];
+                                                $class = $row['class'];
+                                                $seat_no = $row['seat_no'];
+                                                $amount = $row['amount'];
+                                                $date_created = $row['date_created'];
                                                 ?>
                                                 <tr>
-                                                    <td><?PHP echo $id; ?></td>
-                                                    <td><?PHP echo $fname . ' ' . $lname; ?></td>
-                                                    <td><?PHP echo $email; ?></td>
-                                                    <td><a class="btn btn-info" href="#myModal" data-toggle="modal" id="<?PHP echo $email; ?>" data-target="#edit-modal" >
-                                                            Email
-                                                        </a></td>
-                                                    <td><?PHP echo $p_img; ?></td>
-                                                    <td><?PHP
-                                                        if ($user_type == 'U') {
-                                                            echo 'User';
-                                                        } elseif ($user_type == 'A') {
-                                                            echo 'Admin';
-                                                        }
-                                                        ?></td>
-                                                    <td><?PHP echo $phone; ?></td>
-                                                    <td><?PHP echo $address; ?></td>
-                                                    <td><?PHP echo $passport_no; ?></td>
-                                                    <td><?PHP echo $date_registered; ?></td>
+                                                    <td><?PHP echo $booking_id; ?></td>
+                                                    <td><?PHP echo $user_id; ?></td>
+                                                    <td><?PHP echo $flight_id; ?></td>
+                                                    <td><?PHP echo $booking_reference; ?></td>
+                                                    <td><?PHP echo $class; ?></td>
+                                                    <td><?PHP echo $seat_no; ?></td>
+                                                    <td><?PHP echo $amount; ?></td>
+                                                    <td><?PHP echo $date_created; ?></td>
+                                                    <td>
+                                                        <a class="btn btn-danger" href="#" onclick="return Delete(<?php echo $booking_id; ?>)" >
+                                                            Cancel
+                                                        </a>
+                                                    </td>
 
                                                 </tr>
-                                            <?php } ?>
+<?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -184,6 +185,7 @@
                         </div>
                         <!-- /block -->
                     </div>
+
                     <!--                    <div class="row-fluid">
                                              block 
                                             <div class="block">
@@ -482,89 +484,32 @@
                                         </div>-->
                 </div>
             </div>
-            <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Send An Email</h4>
-                        </div>
-                        <div class="modal-body edit-content">
-
-                        </div>
-                        <div class="modal-footer">
-                            <input class="btn btn-success" type="submit" value="Send!" id="submit">
-                            <a href="#" class="btn" data-dismiss="modal">Nah.</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <hr>
 
         </div>
-
         <!--/.fluid-container-->
         <script src="vendors/jquery-1.9.1.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="vendors/easypiechart/jquery.easy-pie-chart.js"></script>
         <script src="assets/scripts.js"></script>
 
-<!--        <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <link data-require="bootstrap-css@*" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />-->
 
-
-        <script>
-            $(document).ready(function () {
-                $("input#submit").click(function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "email.php", //process to mail
-                        data: $('form.contact').serialize(),
-                        success: function (msg) {
-                            $("#thanks").html(msg) //hide button and show thank you
-                            $("#edit-modal").modal('hide'); //hide popup  
-                            $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
-                                $(".alert-success").alert('close');
-                            });
-                        },
-                        error: function () {
-                            alert("failure");
-                        }
-                    });
-                });
-            });
-            $('#edit-modal').on('show.bs.modal', function (e) {
-
-                var $modal = $(this);
-                essay_id = event.target.id;
-                console.log(essay_id);
-//
-                $.ajax({
-                    cache: false,
-                    type: 'POST',
-                    url: 'backend.php',
-                    data: 'EID=' + essay_id,
-                    success: function (data)
-                    {
-                        $modal.find('.edit-content').html(data);
-                    }
-                });
-
-            })
-        </script>
         <script src="vendors/datatables/js/jquery.dataTables.min.js"></script>
 
 
         <script src="assets/DT_bootstrap.js"></script>
         <script>
-            $(function () {
-                // Easy pie charts
-                $('.chart').easyPieChart({animate: 1000});
-            });
-
+                                                            $(function () {
+                                                                // Easy pie charts
+                                                                $('.chart').easyPieChart({animate: 1000});
+                                                            });
+                                                            function Delete(id)
+                                                            {
+                                                                if (confirm("Are you sure you want to cancel this reservation?") == true)
+                                                                    window.location = "res.php?del=" + id;
+                                                                return false;
+                                                            }
         </script>
-
     </body>
 
 </html>

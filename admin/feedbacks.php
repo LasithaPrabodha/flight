@@ -41,7 +41,7 @@
                             <a href="flights.php"><i class="icon-chevron-right"></i>Flight Schedules</a>
                         </li>
                         <li class="active">
-                            <a href="feedbacks.php"><i class="icon-chevron-right"></i>Feedbacks</a>
+                            <a href="feedbacks.php"><i class="icon-chevron-right"></i>Feedback</a>
                         </li>
                         <!--                        <li>
                                                     <a href="stats.php"><i class="icon-chevron-right"></i> Statistics (Charts)</a>
