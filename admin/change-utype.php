@@ -81,12 +81,12 @@
     </head>
 
     <body>
-<?PHP include_once 'nav.php'; ?>
+        <?PHP include_once 'nav.php'; ?>
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span3" id="sidebar">
                     <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                        <li>
+                        <li class="active">
                             <a href="index.php"><i class="icon-chevron-right"></i>Users</a>
                         </li>
                         <li >
@@ -95,51 +95,10 @@
                         <li >
                             <a href="flights.php"><i class="icon-chevron-right"></i>Flight Schedules</a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="feedbacks.php"><i class="icon-chevron-right"></i>Feedback</a>
                         </li>
-                        <!--                        <li>
-                                                    <a href="stats.php"><i class="icon-chevron-right"></i> Statistics (Charts)</a>
-                                                </li>
-                                                <li>
-                                                    <a href="form.php"><i class="icon-chevron-right"></i> Forms</a>
-                                                </li>
-                                                <li>
-                                                    <a href="tables.php"><i class="icon-chevron-right"></i> Tables</a>
-                                                </li>
-                                                <li>
-                                                    <a href="buttons.php"><i class="icon-chevron-right"></i> Buttons & Icons</a>
-                                                </li>
-                                                <li>
-                                                    <a href="editors.php"><i class="icon-chevron-right"></i> WYSIWYG Editors</a>
-                                                </li>
-                                                <li>
-                                                    <a href="interface.php"><i class="icon-chevron-right"></i> UI & Interface</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-success pull-right">731</span> Orders</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-success pull-right">812</span> Invoices</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">27</span> Clients</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">1,234</span> Users</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">2,221</span> Messages</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-info pull-right">11</span> Reports</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-important pull-right">83</span> Errors</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><span class="badge badge-warning pull-right">4,231</span> Logs</a>
-                                                </li>-->
+
                     </ul>
                 </div>
 
@@ -156,12 +115,12 @@
                                     <i class="icon-chevron-left hide-sidebar"><a href='#' title="Hide Sidebar" rel='tooltip'>&nbsp;</a></i>
                                     <i class="icon-chevron-right show-sidebar" style="display:none;"><a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a></i>
                                     <li>
-                                        <a href="#">Feedbacks</a> <span class="divider">/</span>	
+                                        <a href="#">Users</a> <span class="divider">/</span>	
                                     </li>
                                     <li>
-                                        <a href="#">Settings</a> <span class="divider">/</span>	
+                                        <a href="#">Type</a> <span class="divider">/</span>	
                                     </li>
-                                    <li class="active">Tools</li>
+                                    <li class="active">Change</li>
                                 </ul>
                             </div>
                         </div>
@@ -171,7 +130,7 @@
                         <!-- block -->
                         <div class="block">
                             <div class="navbar navbar-inner block-header">
-                                <div class="muted pull-left">Usertype</div>
+                                <div class="muted pull-left">User type</div>
                             </div>
                             <div class="block-content collapse in">
                                 <div class="span12">
@@ -197,12 +156,16 @@
                                                 <label for="last_name">User Type </label>
                                                 <div class="controls">
                                                     <select  name="usertype">
-                                                        <option value="U"<?php if ($user_type == 'U') {
-    echo ' selected';
-} ?>>User</option>
-                                                        <option value="A" <?php if ($user_type == 'A') {
-    echo ' selected';
-} ?>>Admin</option>
+                                                        <option value="U"<?php
+                                                        if ($user_type == 'U') {
+                                                            echo ' selected';
+                                                        }
+                                                        ?>>User</option>
+                                                        <option value="A" <?php
+                                                        if ($user_type == 'A') {
+                                                            echo ' selected';
+                                                        }
+                                                        ?>>Admin</option>
 
                                                     </select>
 
@@ -216,7 +179,7 @@
                         </div>
                         <!-- /block -->
                     </div>
-                   
+
                 </div>
             </div>
             <hr>

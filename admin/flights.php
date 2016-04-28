@@ -20,7 +20,7 @@
             echo "<div class='alert alert-danger'>All the fields are mandatory.</div>";
         } else {
 
-            $sql = "INSERT INTO `flights`(`flight_no`, `airline`, `depature`, `destination`, `depature_date`, `b_price`, `b_seat_count`, `e_price`, `e_seat_count`) VALUES ('$flight_no','$airline','$dep','$des','$dep_d','$b_price','$b_count','$e_price','$e_counr')";
+            $sql = "INSERT INTO `flights`(`flight_no`, `airline`, `depature`, `destination`, `depature_date`, `b_price`, `b_seat_count_w`, `e_price`, `e_seat_count_w`) VALUES ('$flight_no','$airline','$dep','$des','$dep_d','$b_price','$b_count','$e_price','$e_counr')";
             if ($result = $conexion->query($sql)) {
                 echo "<div class='alert alert-success'>Flight added successfully.</div>";
             }
@@ -111,10 +111,10 @@
                                                 <th>Departure</th>
                                                 <th>Destination</th>
                                                 <th>Departure Date</th>
-                                                <th>B_price</th>
-                                                <th>B_seat_count</th>
-                                                <th>e_price</th>
-                                                <th>e_seat_count</th>
+                                                <th>Business Class Price</th>
+                                                <th>Business Class Seat count</th>
+                                                <th>Economy Class Price</th>
+                                                <th>Economy Class Seat count</th>
                                                 <th>Date created</th>
 
                                         </thead>
@@ -134,9 +134,9 @@
                                                 $destination = $row['destination'];
                                                 $depature_date = $row['depature_date'];
                                                 $b_price = $row['b_price'];
-                                                $b_seat_count_w = $row['b_seat_count'];
+                                                $b_seat_count_w = $row['b_seat_count_w'];
                                                 $e_price = $row['e_price'];
-                                                $e_seat_count_w = $row['e_seat_count'];
+                                                $e_seat_count_w = $row['b_seat_count_w'];
                                                 $date_created = $row['date_created'];
                                                 ?>
                                                 <tr>
@@ -162,7 +162,7 @@
 
                         <div class="block">
                             <div class="navbar navbar-inner block-header">
-                                <div class="muted pull-left">Usertype</div>
+                                <div class="muted pull-left">Add a flight</div>
                             </div>
                             <div class="block-content collapse in">
                                 <div class="span12">
@@ -171,7 +171,7 @@
                                         <div style="width:500px;">
                                             <div class="form-group">
                                                 <label for="first_name">Flight No</label>
-                                                <input type="texr" name="flight_no"  class="form-control"  >
+                                                <input type="text" name="flight_no"  class="form-control"  >
                                                 <p class="help-block"></p>
                                             </div>
                                             <div class="form-group">
