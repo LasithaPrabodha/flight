@@ -52,15 +52,15 @@ echo $m;
 						<div class="book-left-form">
 							<form id="signinForm" action="" method="post">
 								<p>First Name</p>
-								<input type="text" name="fname" required id="fname" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+                                                                <input type="text" name="fname" required id="fname" value="" >
 								<p>Last Name</p>
-								<input type="text" name="lname" required id="lname" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+								<input type="text" name="lname" required id="lname" value="" >
 								<p>Phone Number</p>
-								<input type="text" name="pno" id="pno" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+								<input type="text" name="pno" id="pno" value="" pattern=".{10,}" required title="10 numbers " pattern="[0-9]"  >
 								<p>Email Address</p>
-								<input type="text" name="email" required id="email" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+								<input type="email" name="email" required id="email" value="" >
                                                                 <p>Passport Number</p>
-								<input type="text" name="passport" required id="passport" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+								<input type="text" name="passport" required id="passport" value=""  >
 								<p>Password</p>
 								<input type="password" name="password" required id="password">
 								<p>Confirm Password</p>

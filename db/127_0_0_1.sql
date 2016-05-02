@@ -149,11 +149,11 @@ CREATE TABLE IF NOT EXISTS `donations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `g_physiciant`
+-- Table structure for table `medical_c`
 --
 
-CREATE TABLE IF NOT EXISTS `g_physiciant` (
-`gp_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `medical_c` (
+`mc_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `qualifications` longtext NOT NULL,
   `acc_no` varchar(30) NOT NULL,
@@ -167,8 +167,8 @@ CREATE TABLE IF NOT EXISTS `g_physiciant` (
 --
 
 CREATE TABLE IF NOT EXISTS `gp_payments` (
-  `gp_payment_id` int(11) NOT NULL,
-  `gp_id` int(11) NOT NULL,
+  `mc_payment_id` int(11) NOT NULL,
+  `mc_id` int(11) NOT NULL,
   `amount` float NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -277,10 +277,10 @@ ALTER TABLE `doctor_charges`
  ADD PRIMARY KEY (`charges_id`);
 
 --
--- Indexes for table `g_physiciant`
+-- Indexes for table `medical_c`
 --
-ALTER TABLE `g_physiciant`
- ADD PRIMARY KEY (`gp_id`);
+ALTER TABLE `medical_c`
+ ADD PRIMARY KEY (`mc_id`);
 
 --
 -- Indexes for table `patient`
@@ -326,10 +326,10 @@ MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 ALTER TABLE `doctor_charges`
 MODIFY `charges_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `g_physiciant`
+-- AUTO_INCREMENT for table `medical_c`
 --
-ALTER TABLE `g_physiciant`
-MODIFY `gp_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `medical_c`
+MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `patient`
 --
@@ -872,11 +872,11 @@ INSERT INTO `pma_column_info` (`id`, `db_name`, `table_name`, `column_name`, `co
 (69, 'flight_db', 'users', 'first_name', '', '', '_', ''),
 (70, 'flight_db', 'users', 'last_name', '', '', '_', ''),
 (63, 'doc_res', 'appoinments', 'time_slot', '', '', '_', ''),
-(25, 'doc_res', 'g_physiciant', 'gp_id', '', '', '_', ''),
-(26, 'doc_res', 'g_physiciant', 'user_id', '', '', '_', ''),
-(27, 'doc_res', 'g_physiciant', 'qualifications', '', '', '_', ''),
-(28, 'doc_res', 'g_physiciant', 'acc_no', '', '', '_', ''),
-(29, 'doc_res', 'g_physiciant', 'bank', '', '', '_', ''),
+(25, 'doc_res', 'medical_c', 'mc_id', '', '', '_', ''),
+(26, 'doc_res', 'medical_c', 'user_id', '', '', '_', ''),
+(27, 'doc_res', 'medical_c', 'qualifications', '', '', '_', ''),
+(28, 'doc_res', 'medical_c', 'acc_no', '', '', '_', ''),
+(29, 'doc_res', 'medical_c', 'bank', '', '', '_', ''),
 (30, 'doc_res', 'doctor_charges', 'charges_id', '', '', '_', ''),
 (31, 'doc_res', 'doctor_charges', 'doctor_id', '', '', '_', ''),
 (32, 'doc_res', 'doctor_charges', 'channeling_fee', '', '', '_', ''),
@@ -886,8 +886,8 @@ INSERT INTO `pma_column_info` (`id`, `db_name`, `table_name`, `column_name`, `co
 (36, 'doc_res', 'patient_payments', 'doctor_id', '', '', '_', ''),
 (37, 'doc_res', 'patient_payments', 'amount', '', '', '_', ''),
 (38, 'doc_res', 'patient_payments', 'date', '', '', '_', ''),
-(39, 'doc_res', 'gp_payments', 'gp_payment_id', '', '', '_', ''),
-(40, 'doc_res', 'gp_payments', 'gp_id', '', '', '_', ''),
+(39, 'doc_res', 'gp_payments', 'mc_payment_id', '', '', '_', ''),
+(40, 'doc_res', 'gp_payments', 'mc_id', '', '', '_', ''),
 (41, 'doc_res', 'gp_payments', 'amount', '', '', '_', ''),
 (42, 'doc_res', 'gp_payments', 'date', '', '', '_', ''),
 (43, 'doc_res', 'donations', 'donation_id', '', '', '_', ''),
